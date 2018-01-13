@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,24 +24,35 @@ namespace Lesson13CS.Repository
 
         public List<Apple> GetApples()
         {
-            return _db.Apples;
+            _apples.Clear();
+
+            _apples.AddRange(_db.Apples);
+            _db.Apples.ForEach(HistoryHelper.AddItem);
+            return _apples.OfType<Apple>().ToList();
         }
 
         public List<SoldApple> GetSoldApples()
         {
-            return _db.SoldApples;
+            _apples.Clear();
+
+            _apples.AddRange(_db.SoldApples);
+            _db.SoldApples.ForEach(HistoryHelper.AddItem);
+
+            return _apples.OfType<SoldApple>().ToList();
         }
 
         public List<IApple> GetAllApplesBy()
         {
             try
             {
-                var apples = new List<IApple>();
+                _apples.Clear();
 
-                apples.AddRange(_db.Apples);
-                apples.AddRange(_db.SoldApples);
+                _apples.AddRange(_db.Apples);
+                _apples.AddRange(_db.SoldApples);
+                _db.Apples.ForEach(HistoryHelper.AddItem);
+                _db.SoldApples.ForEach(HistoryHelper.AddItem);
 
-                return apples;
+                return _apples;
             }
             catch (Exception e)
             {

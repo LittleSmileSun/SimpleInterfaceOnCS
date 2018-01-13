@@ -17,19 +17,20 @@ namespace Lesson13CS
 
             //var apples = repository.GetSoldApples();
             //var apples = repository.GetApples();
-            var apples = repository.GetSoldApples();
-            var editApple = apples[0];
-            PrintApple(editApple);
-            editApple.Price = 10.45;
-            PrintApple(editApple);
+            var apples = repository.GetAllApplesBy();
+            ////var editApple = apples[0];
+            ////PrintApple(editApple);
+            ////editApple.Price = 10.45;
+            ////PrintApple(editApple);
 
-            //apples.ForEach(PrintApple);
-
+            apples.ForEach(PrintApple);
+            repository.HistoryHelper.SaveHistory();
             Console.ReadKey();
         }
 
         private static void PrintApple(IApple apple)
-        {
+        { 
+            
             Console.WriteLine($"Kind: {apple.Kind}\nColor: {apple.Color}\nPrice: {apple.Price:n}\n");
         }
     }
